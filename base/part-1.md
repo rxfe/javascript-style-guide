@@ -200,7 +200,7 @@ import has from 'has'; // https://www.npmjs.com/package/has
 console.log(has.call(object, key));
 ```
 
-- 3.8 使用`...`操作符来代替`Object.assign`来对对象进行`shallow-copy`。使用`rest`操作来获得一个拥有确定属性的对象
+- 3.8 使用`...`操作符来代替`Object.assign`来对对象进行`shallow-copy`。使用`rest`操作来获得一个删除了某些确定属性的对象
 ```javascript
 // very bad
 const original = { a: 1, b: 2 };
@@ -228,4 +228,127 @@ const items = new Array();
 const items = [];
 ```
 
-- 4.2
+- 4.2 向数组添加元素时使用 Arrary#push 替代直接赋值。
+```javascript
+const someStack = [];
+
+// bad
+someStack[someStack.length] = 'abracadabra';
+
+// good
+someStack.push('abracadabra');
+```
+- 4.3 使用拓展运算符 ... 复制数组
+```javascript
+// bad
+const len = items.length;
+const itemsCopy = [];
+let i;
+
+for (i = 0; i < len; i += 1) {
+  itemsCopy[i] = items[i];
+}
+
+// good
+const itemsCopy = [...items];
+```
+- 4.4 把一个类数组转换成数组时，优先使用`...`操作，而不是`Array.from`
+```javascript
+const foo = document.querySelectorAll('.foo');
+
+// good
+const nodes = Array.from(foo);
+
+// best
+const nodes = [...foo];
+```
+
+- 4.5 当对类数组进行`map`操作时，请使用`Array.from`而不是`...`操作，因为这样可以避免创建中间数组
+```javascript
+// bad
+const baz = [...foo].map(bar);
+
+// good
+const baz = Array.from(foo, bar);
+```
+
+- 4.6 在数组方法的回调中，需要有`return`的值. 但是如果在函数体重仅仅只有一行表达式，并且这个表达式没有副作用，那么可以省略`return`。 `eslint: array-callback-return`
+```javascript
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map(x => x + 1);
+
+// bad - no returned value means `acc` becomes undefined after the first iteration
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+  acc[index] = flatten;
+});
+
+// good
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+  acc[index] = flatten;
+  return flatten;
+});
+
+// bad
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  } else {
+    return false;
+  }
+});
+
+// good
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  }
+
+  return false;
+});
+```
+
+- 4.7 当数组有多行时，在中括号开始和结束的地方需要进行换行
+```javascript
+// bad
+const arr = [
+  [0, 1], [2, 3], [4, 5],
+];
+
+const objectInArray = [{
+  id: 1,
+}, {
+  id: 2,
+}];
+
+const numberInArray = [
+  1, 2,
+];
+
+// good
+const arr = [[0, 1], [2, 3], [4, 5]];
+
+const objectInArray = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+];
+
+const numberInArray = [
+  1,
+  2,
+];
+
+```

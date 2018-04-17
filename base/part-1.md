@@ -100,4 +100,132 @@
     [getKey('enabled')]: true,
   };
   ```
-  - 3.3 使用对象方法的简写方式
+  - 3.3 使用对象方法的简写方式. `eslint: object-shorthand jscs: requireEnhancedObjectLiterals`
+  ```javascript
+  // bad
+  const atom = {
+    value: 1,
+
+    addValue: function (value) {
+      return atom.value + value;
+    },
+  };
+
+  // good
+  const atom = {
+    value: 1,
+
+    addValue(value) {
+      return atom.value + value;
+    },
+  };
+  ```
+
+  - 3.4 使用属性值的简写方式. ` eslint: object-shorthand jscs: requireEnhancedObjectLiterals`
+  > 为什么？写起来更简短，并且更容易描述
+  ```javascript
+  const lukeSkywalker = 'Luke Skywalker';
+
+  // bad
+  const obj = {
+    lukeSkywalker: lukeSkywalker,
+  };
+
+  // good
+  const obj = {
+    lukeSkywalker,
+  };
+  ```
+
+
+- 3.5 把简写的属性归为一组放到对象声明的开头
+> 为什么？这样更容易分清哪些属性利用了简写方式
+```javascript
+const anakinSkywalker = 'Anakin Skywalker';
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  lukeSkywalker,
+  episodeThree: 3,
+  mayTheFourth: 4,
+  anakinSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+  anakinSkywalker,
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  episodeThree: 3,
+  mayTheFourth: 4,
+};
+```
+
+- 3.6 对属性使用引号是不建议的.`eslint: quote-props jscs: disallowQuotedKeysInObjects`
+> 我们觉得不使用引号是更容易阅读的。 对于代码高亮也有一定的改善，对于一些JS引擎也更友好
+```javascript
+// bad
+const bad = {
+  'foo': 3,
+  'bar': 4,
+  'data-blah': 5,
+};
+
+// good
+const good = {
+  foo: 3,
+  bar: 4,
+  'data-blah': 5,
+};
+```
+
+- 3.7 不要直接调用`Object.prototype`上的方法，比如`hasOwnProperty`、`propertyIsEnumerable` 、`isPrototypeOf`等
+> 为什么？这些方法可能会被对象里的属性覆盖，考虑这些情况 `{ hasOwnProperty: false}`, 或者这个对象可能是一个`null`对象（`Object.create(null)`）
+```javascript
+// bad
+console.log(object.hasOwnProperty(key));
+
+// good
+console.log(Object.prototype.hasOwnProperty.call(object, key));
+
+// best
+const has = Object.prototype.hasOwnProperty; // cache the lookup once, in module scope.
+/* or */
+import has from 'has'; // https://www.npmjs.com/package/has
+// ...
+console.log(has.call(object, key));
+```
+
+- 3.8 使用`...`操作符来代替`Object.assign`来对对象进行`shallow-copy`。使用`rest`操作来获得一个拥有确定属性的对象
+```javascript
+// very bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign(original, { c: 3 }); // this mutates `original` ಠ_ಠ
+delete copy.a; // so does this
+
+// bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+
+// good
+const original = { a: 1, b: 2 };
+const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
+
+const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
+```
+
+## 数组
+- 4.1 使用字面值创建数组。`eslint: no-array-constructor`
+```javascript
+// bad
+const items = new Array();
+
+// good
+const items = [];
+```
+
+- 4.2

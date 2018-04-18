@@ -365,3 +365,127 @@ console.log(
 );
 ```
 
+## 箭头函数
+- 8.1 当你必须使用一个匿名函数(或者仅仅是一行的回调函数)时，使用箭头函数的符号.`eslint: prefer-arrow-callback, arrow-spacing jscs: requireArrowFunctions`
+> 为什么？因为箭头函数创造了新的一个 `this` 执行环境通常情况下都能满足你的需求，而且这样的写法更为简洁。
+
+> 为什么不？如果你有一个相当复杂的函数，你或许可以把逻辑部分转移到一个函数声明上。
+```javascript
+// bad
+[1, 2, 3].map(function (x) {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+```
+
+- 8.2 如果一个函数只有一行表达式，并且没有副作用，那就把花括号、圆括号和 return 都省略掉。如果不是，那就不要省略。`eslint: arrow-parens, arrow-body-style jscs: disallowParenthesesAroundArrowParam, requireShorthandArrowFunctions`
+> 为什么？语法糖。在链式调用中可读性很高。
+```javascript
+// bad
+[1, 2, 3].map(number => {
+  const nextNumber = number + 1;
+  `A string containing the ${nextNumber}.`;
+});
+
+// good
+[1, 2, 3].map(number => `A string containing the ${number}.`);
+
+// good
+[1, 2, 3].map((number) => {
+  const nextNumber = number + 1;
+  return `A string containing the ${nextNumber}.`;
+});
+
+// good
+[1, 2, 3].map((number, index) => ({
+  [index]: number,
+}));
+
+// No implicit return with side effects
+function foo(callback) {
+  const val = callback();
+  if (val === true) {
+    // Do something if callback returns true
+  }
+}
+
+let bool = false;
+
+// bad
+foo(() => bool = true);
+
+// good
+foo(() => {
+  bool = true;
+});
+```
+
+- 8.3 如果表达式跨了多行，那么使用括号包裹起来，这样能提高可读性
+> 为什么？这样能更好的展示函数的开头和结尾
+```javascript
+// bad
+['get', 'post', 'put'].map(httpMethod => Object.prototype.hasOwnProperty.call(
+    httpMagicObjectWithAVeryLongName,
+    httpMethod,
+  )
+);
+
+// good
+['get', 'post', 'put'].map(httpMethod => (
+  Object.prototype.hasOwnProperty.call(
+    httpMagicObjectWithAVeryLongName,
+    httpMethod,
+  )
+));
+```
+
+- 8.4 如果函数只有一个参数，并且这个参数没有加括号，那么，函数体不需要大括号。`eslint: arrow-parens jscs: disallowParenthesesAroundArrowParam`
+> 为什么？视觉上更清晰，没有杂乱的部分
+```javascript
+// bad
+[1, 2, 3].map((x) => x * x);
+
+// good
+[1, 2, 3].map(x => x * x);
+
+// good
+[1, 2, 3].map(number => (
+  `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
+));
+
+// bad
+[1, 2, 3].map(x => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+```
+
+- 8.5 避免让箭头函数的语法`=>`与比较操作`<= or >=`造成疑惑. `eslint: no-confusing-arrow`
+```javascript
+// bad
+const itemHeight = item => item.height > 256 ? item.largeSize : item.smallSize;
+
+// bad
+const itemHeight = (item) => item.height > 256 ? item.largeSize : item.smallSize;
+
+// good
+const itemHeight = item => (item.height > 256 ? item.largeSize : item.smallSize);
+
+// good
+const itemHeight = (item) => {
+  const { height, largeSize, smallSize } = item;
+  return height > 256 ? largeSize : smallSize;
+};
+```

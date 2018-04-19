@@ -254,5 +254,157 @@ function example() {
 }
 ```
 
+## 比较运算符和符号
+- 15.1 优先使用 === 和 !== 而不是 == 和 !=. `eslint: eqeqeq`
+- 15.2 条件表达式例如 if 语句通过抽象方法 ToBoolean 强制计算它们的表达式并且总是遵守下面的规则：
+  - 对象 被计算为 true
+  - Undefined 被计算为 false
+  - Null 被计算为 false
+  - 布尔值 被计算为 布尔的值
+  - 数字 如果是 +0、-0、或 NaN 被计算为 false, 否则为 true
+  - 字符串 如果是空字符串 '' 被计算为 false，否则为 true
+```js
+if ([0] && []) {
+  // true
+  // an array (even an empty one) is an object, objects will evaluate to true
+}
+```
+- 15.3 除非需要比较具体的字符串或者数字，否则使用`booleans`的简写
+```js
+// bad
+if (isValid === true) {
+  // ...
+}
 
+// good
+if (isValid) {
+  // ...
+}
 
+// bad
+if (name) {
+  // ...
+}
+
+// good
+if (name !== '') {
+  // ...
+}
+
+// bad
+if (collection.length) {
+  // ...
+}
+
+// good
+if (collection.length > 0) {
+  // ...
+}
+```
+
+15.4 在`case`和`default`从句中如果包含了词法声明(e.g. `let`, `const`, `function`, `class`), 那么用大括号包成一个块. ` eslint: no-case-declarations`
+> 为什么？词法声明在整个`switch`块里都是可见的，但是它的初始化发生在`case`执行的时候的数据分配。这种方式在多个`case`从句试图定义同一个东西的时候会出现问题。
+```js
+// bad
+switch (foo) {
+  case 1:
+    let x = 1;
+    break;
+  case 2:
+    const y = 2;
+    break;
+  case 3:
+    function f() {
+      // ...
+    }
+    break;
+  default:
+    class C {}
+}
+
+// good
+switch (foo) {
+  case 1: {
+    let x = 1;
+    break;
+  }
+  case 2: {
+    const y = 2;
+    break;
+  }
+  case 3: {
+    function f() {
+      // ...
+    }
+    break;
+  }
+  case 4:
+    bar();
+    break;
+  default: {
+    class C {}
+  }
+}
+```
+
+- 15.5 双目运算不应该有层叠，通常应该是放到单独一行。`eslint: no-nested-ternary`
+```js
+// bad
+const foo = maybe1 > maybe2
+  ? "bar"
+  : value1 > value2 ? "baz" : null;
+
+// split into 2 separated ternary expressions
+const maybeNull = value1 > value2 ? 'baz' : null;
+
+// better
+const foo = maybe1 > maybe2
+  ? 'bar'
+  : maybeNull;
+
+// best
+const foo = maybe1 > maybe2 ? 'bar' : maybeNull;
+```
+
+- 15.6 避免不必要的双目运算。`eslint: no-unneeded-ternary`
+```js
+// bad
+const foo = a ? a : b;
+const bar = c ? true : false;
+const baz = c ? false : true;
+
+// good
+const foo = a || b;
+const bar = !!c;
+const baz = !c;
+```
+
+- 15.7 当各种操作符混合在一起的时候，利用括号将他们组成一组。除非这些操作符是标准的算术运算操作符。`eslint: no-mixed-operators`
+> 为什么？这样可以改善可读性，并且使开发者的意图更加的清晰。
+```js
+// bad
+const foo = a && b < 0 || c > 0 || d + 1 === 0;
+
+// bad
+const bar = a ** b - 5 % d;
+
+// bad
+// one may be confused into thinking (a || b) && c
+if (a || b && c) {
+  return d;
+}
+
+// good
+const foo = (a && b < 0) || c > 0 || (d + 1 === 0);
+
+// good
+const bar = (a ** b) - (5 % d);
+
+// good
+if (a || (b && c)) {
+  return d;
+}
+
+// good
+const bar = a + b / c * d;
+```

@@ -267,3 +267,144 @@ import barCss from 'style!css!bar.css';
 import fooSass from 'foo.scss';
 import barCss from 'bar.css';
 ```
+
+## 迭代器和生成器
+- 11.1 不要使用迭代器。更合适的方式是使用`javascript`的高阶函数来代替使用`for-in`、`for-of`的循环.
+> 为什么？这加强了我们不变的规则。处理纯函数的回调值更易读，这比它带来的副作用更重要。
+
+> 使用`map() / every() / filter() / find() / findIndex() / reduce() / some() / ... `来对数组进行迭代. 使用`Object.keys() / Object.values() / Object.entries()`来产生数组，然后再对`object`进行迭代.
+```js
+const numbers = [1, 2, 3, 4, 5];
+
+// bad
+let sum = 0;
+for (let num of numbers) {
+  sum += num;
+}
+sum === 15;
+
+// good
+let sum = 0;
+numbers.forEach((num) => {
+  sum += num;
+});
+sum === 15;
+
+// best (use the functional force)
+const sum = numbers.reduce((total, num) => total + num, 0);
+sum === 15;
+
+// bad
+const increasedByOne = [];
+for (let i = 0; i < numbers.length; i++) {
+  increasedByOne.push(numbers[i] + 1);
+}
+
+// good
+const increasedByOne = [];
+numbers.forEach((num) => {
+  increasedByOne.push(num + 1);
+});
+
+// best (keeping it functional)
+const increasedByOne = numbers.map(num => num + 1);
+```
+
+- 11.2 现在还不要使用 generators。
+> 为什么？因为它们现在还没法很好地编译到 ES5。
+
+- 11.3 如果你一定要使用`generators`，或者你要忽略我们上面的建议，那么在函数签名的地方应该正确的加上空格.`eslint: generator-star-spacing`
+> 为什么？`function`和`*`是相同概念的组成部分 - `*`是用来描述`function`的， `function*`是独立的构造，和`function`不是同一个概念
+```js
+// bad
+function * foo() {
+  // ...
+}
+
+// bad
+const bar = function * () {
+  // ...
+};
+
+// bad
+const baz = function *() {
+  // ...
+};
+
+// bad
+const quux = function*() {
+  // ...
+};
+
+// bad
+function*foo() {
+  // ...
+}
+
+// bad
+function *foo() {
+  // ...
+}
+
+// very bad
+function
+*
+foo() {
+  // ...
+}
+
+// very bad
+const wat = function
+*
+() {
+  // ...
+};
+
+// good
+function* foo() {
+  // ...
+}
+
+// good
+const foo = function* () {
+  // ...
+};
+```
+
+## 属性
+- 12.1 使用`.`来访问对象的属性。`eslint: dot-notation jscs: requireDotNotation`
+```js
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+// bad
+const isJedi = luke['jedi'];
+
+// good
+const isJedi = luke.jedi;
+```
+
+- 12.2 当通过变量访问属性时使用中括号 []。
+```js
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+function getProp(prop) {
+  return luke[prop];
+}
+
+const isJedi = getProp('jedi');
+```
+
+- 12.3 当计算数值的乘方时，使用乘方操作符`**`.`eslint: no-restricted-properties.`
+```js
+// bad
+const binary = Math.pow(2, 10);
+
+// good
+const binary = 2 ** 10;
+```

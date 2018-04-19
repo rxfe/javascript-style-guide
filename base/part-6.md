@@ -380,3 +380,62 @@ const requests = [
 ```
 
 - 23.10
+
+## 存取器
+- 23.1 属性的存取函数不是必须的。
+
+- 23.2 不要使用JavaScript的`getters/setters`, 他们会导致不可预期的副作用，并且很难去测试，如果你需要存取函数时使用`getVal()`和`setVal('hello')`。
+```js
+// bad
+class Dragon {
+  get age() {
+    // ...
+  }
+
+  set age(value) {
+    // ...
+  }
+}
+
+// good
+class Dragon {
+  getAge() {
+    // ...
+  }
+
+  setAge(value) {
+    // ...
+  }
+}
+```
+
+- 23.3 如果属性是布尔值，使用 isVal() 或 hasVal()。
+```js
+// bad
+if (!dragon.age()) {
+  return false;
+}
+
+// good
+if (!dragon.hasAge()) {
+  return false;
+}
+```
+
+- 23.4 创建 get() 和 set() 函数是可以的，但要保持一致。
+```js
+class Jedi {
+  constructor(options = {}) {
+    const lightsaber = options.lightsaber || 'blue';
+    this.set('lightsaber', lightsaber);
+  }
+
+  set(key, val) {
+    this[key] = val;
+  }
+
+  get(key) {
+    return this[key];
+  }
+}
+```

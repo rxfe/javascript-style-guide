@@ -251,7 +251,7 @@ const good = new User({
 ```
 
 - 23.4 不要使用下划线 _ 结尾或开头来命名属性和方法。`eslint: no-underscore-dangle`
-> 为什么? javascript里没有私有属性或者私有函数的概念，虽然下划线的通常约定是私有的，但是事实上，在js中却是完全公有的。在这种惯例会使开发者错误的认为一个变化不会造成破坏，或者相关的测试是不需要的。
+> 为什么? javascript里没有私有属性或者私有函数的概念，虽然下划线的通常约定是私有的，但是事实上，在js中却是完全公有的。在这种惯例会使开发者错误的认为一个变化不会造成破坏，或者相关的测试是不需要的。
 ```js
 // bad
 this.__firstName__ = 'Panda';
@@ -347,7 +347,7 @@ export default AirbnbStyleGuide;
 ```
 
 - 23.9 首字母缩略词应该全部大写或者全部小写.
-> 为什么?名字是用来给人阅读的，而不是用来给计算机算法看的
+> 为什么?名字是用来给人阅读的，而不是用来给计算机算法看的
 ```js
 // bad
 import SmsContainer from './containers/SmsContainer';

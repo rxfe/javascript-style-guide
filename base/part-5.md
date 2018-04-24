@@ -42,7 +42,7 @@ if (test) {
 }
 ```
 
-- 16.3 如果在`if`的代码块里执行一个`return`的语句，那么第二个`else`是不需要的。如果一个包含有`return`的`if`语句接下来有一个`else if`语句，而且这个语句里又有一个`return`语句,那么这个语句应该被分成多个`if`语句来写。`eslint: no-else-return`
+- 16.3 如果在`if`的代码块里执行一个`return`的语句，那么第二个`else`是不需要的。如果一个包含有`return`的`if`语句接下来有一个`else if`语句，而且这个语句里又有一个`return`语句,那么这个语句应该被分成多个`if`语句来写。`eslint: no-else-return`
 ```js
 // bad
 function foo() {
@@ -106,8 +106,8 @@ function dogs(x) {
 ```
 
 ## 控制语句
-- 17.1 在控制语句中(`if`,`while`etc.)中，如果表达式太长，那么每个条件都应该放到新的一行，逻辑操作符则放在新行的开头。
-> 将逻辑操作符放到一行的开头可以让操作符对齐，就像遵循了相似规则的方法的链式调用一样。这样的做法有利于提升可读性，并且让复杂的逻辑变得更容易看懂。
+- 17.1 在控制语句中(`if`,`while`etc.)中，如果表达式太长，那么每个条件都应该放到新的一行，逻辑操作符则放在新行的开头。
+> 将逻辑操作符放到一行的开头可以让操作符对齐，就像遵循了相似规则的方法的链式调用一样。这样的做法有利于提升可读性，并且让复杂的逻辑变得更容易看懂。
 ```js
 // bad
 if ((foo === 123 || bar === 'abc') && doesItLookGoodWhenItBecomesThatLong() && isThisReallyHappening()) {
@@ -543,7 +543,7 @@ if (foo) {
 }
 ```
 
-- 19.10 在方括号里面不能加空格.`eslint: array-bracket-spacing`
+- 19.10 在方括号里面不能加空格.`eslint: array-bracket-spacing`
 ```js
 // bad
 const foo = [ 1, 2, 3 ];
@@ -563,7 +563,7 @@ const foo = {clark: 'kent'};
 const foo = { clark: 'kent' };
 ```
 
-- 19.12 避免一行的代码超过100个字符(包含空格). 注意：长字符串不适用这条规则，字符串不应该被分割。`eslint: max-len`
+- 19.12 避免一行的代码超过100个字符(包含空格). 注意：长字符串不适用这条规则，字符串不应该被分割。`eslint: max-len`
 > 为什么？这样更具有可读性和可维护性
 ```js
 // bad

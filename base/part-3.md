@@ -98,7 +98,7 @@ class Jedi {
 }
 ```
 
-- 9.5 在一个类中，如果没有显式的编写`constructor`，那么会有一个默认的`constructor`, 所以不需要写一个空的`constructor`或者去代理父类的`constructor`
+- 9.5 在一个类中，如果没有显式的编写`constructor`，那么会有一个默认的`constructor`, 所以不需要写一个空的`constructor`或者去代理父类的`constructor`
 ```js
 // bad
 class Jedi {
@@ -126,7 +126,7 @@ class Rey extends Jedi {
 ```
 
 - 9.6 避免重复声明类成员.`eslint: no-dupe-class-members`
-> 为什么？重复声明的类成员时，仅仅是最后一次的声明的成员会起效，前面声明的会被覆盖。- 重复声明类成员很可能是出现了一个bug
+> 为什么？重复声明的类成员时，仅仅是最后一次的声明的成员会起效，前面声明的会被覆盖。- 重复声明类成员很可能是出现了一个bug
 ```js
 // bad
 class Foo {
@@ -185,7 +185,7 @@ import { es6 } from './AirbnbStyleGuide';
 export default es6;
 ```
 
-- 10.4 只在同一个地方导入具有相同路径的模块。`eslint: no-duplicate-imports`
+- 10.4 只在同一个地方导入具有相同路径的模块。`eslint: no-duplicate-imports`
 > 为什么？在不同的地方导入具有相同路径的模块会导致代码很难维护
 ```js
 // bad
@@ -204,7 +204,7 @@ import foo, {
 ```
 
 - 10.5 不要导出可变的绑定。`eslint: import/no-mutable-exports`
-> 为什么？通常情况下是要避免导出一个可变的绑定，除非在特殊情况下,比如某些技术实现上需要这么做
+> 为什么？通常情况下是要避免导出一个可变的绑定，除非在特殊情况下,比如某些技术实现上需要这么做
 ```js
 // bad
 let foo = 3;
@@ -215,8 +215,8 @@ const foo = 3;
 export { foo };
 ```
 
-- 10.6 在只有一个`export`的模块中，优先使用`default export`。` eslint: import/prefer-default-export`
-> 为什么？鼓励更多的文件只导出一件东西，这样可读性和可维护性会更好
+- 10.6 在只有一个`export`的模块中，优先使用`default export`。` eslint: import/prefer-default-export`
+> 为什么？鼓励更多的文件只导出一件东西，这样可读性和可维护性会更好
 ```js
 // bad
 export function foo() {}
@@ -226,7 +226,7 @@ export default function foo() {}
 ```
 
 - 10.7 把所有的`import`放到非`import`语句之上.`eslint: import/first`
-> 为什么？因为`import`语句会被提升,所以把他们放到顶部以防止出现意外的行为.
+> 为什么？因为`import`语句会被提升,所以把他们放到顶部以防止出现意外的行为.
 ```js
 // bad
 import foo from 'foo';
@@ -241,7 +241,7 @@ import bar from 'bar';
 foo.init();
 ```
 
-- 10.8 当导出多个内容是，每个内容项都应该独立一行，就像数组和对象一样。
+- 10.8 当导出多个内容是，每个内容项都应该独立一行，就像数组和对象一样。
 ```js
 // bad
 import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
@@ -256,8 +256,8 @@ import {
 } from 'path';
 ```
 
-- 10.9 在模块导入声明中，不得使用`webpack loader`的语法。`eslint: import/no-webpack-loader-syntax`
-> 在`import`中使用webpack的语法会使代码和模块加载器产生耦合，所以更好的方式是在`webpack.config.js`中使用`loader`的语法
+- 10.9 在模块导入声明中，不得使用`webpack loader`的语法。`eslint: import/no-webpack-loader-syntax`
+> 在`import`中使用webpack的语法会使代码和模块加载器产生耦合，所以更好的方式是在`webpack.config.js`中使用`loader`的语法
 ```js
 // bad
 import fooSass from 'css!sass!foo.scss';
@@ -313,7 +313,7 @@ const increasedByOne = numbers.map(num => num + 1);
 - 11.2 现在还不要使用 generators。
 > 为什么？因为它们现在还没法很好地编译到 ES5。
 
-- 11.3 如果你一定要使用`generators`，或者你要忽略我们上面的建议，那么在函数签名的地方应该正确的加上空格.`eslint: generator-star-spacing`
+- 11.3 如果你一定要使用`generators`，或者你要忽略我们上面的建议，那么在函数签名的地方应该正确的加上空格.`eslint: generator-star-spacing`
 > 为什么？`function`和`*`是相同概念的组成部分 - `*`是用来描述`function`的， `function*`是独立的构造，和`function`不是同一个概念
 ```js
 // bad

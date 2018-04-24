@@ -1,5 +1,5 @@
 ## 变量
-- 13.1 通常使用`const`或者`let`来声明变量, 如果不这样做就会产生全局变量。我们需要避免全局命名空间的污染。`eslint: no-undef prefer-const`
+- 13.1 通常使用`const`或者`let`来声明变量, 如果不这样做就会产生全局变量。我们需要避免全局命名空间的污染。`eslint: no-undef prefer-const`
 ```js
 // bad
 superPower = new SuperPower();
@@ -8,8 +8,8 @@ superPower = new SuperPower();
 const superPower = new SuperPower();
 ```
 
-- 13.2 一个`const`或者`let`只声明一个变量. `eslint: one-var jscs: disallowMultipleVarDecl`
-> 为什么？增加新变量将变的更加容易，而且你永远不用再担心调换错 `;` 跟 `,`。你也能对每一个声明设置`debugger`， 而不是一次跳过所有变量.
+- 13.2 一个`const`或者`let`只声明一个变量. `eslint: one-var jscs: disallowMultipleVarDecl`
+> 为什么？增加新变量将变的更加容易，而且你永远不用再担心调换错 `;` 跟 `,`。你也能对每一个声明设置`debugger`， 而不是一次跳过所有变量.
 ```js
 // bad
 const items = getItems(),
@@ -118,7 +118,7 @@ console.log(c); // throws ReferenceError
 ```
 
 - 13.6  避免使用一元操作符`++`和`--`. `eslint no-plusplus`
-> 为什么？根据eslint文档，一元递增和递减语句会自动插入分号，应用程序中使用一元操作符会导致一些静默的错误。使用 `num += 1`来替代`num++`或者`num ++`也会使递增的表达式变得更加生动明了。使用`++`和`--`可能会导致因为你无意对值进行修改而产生没有预期到的行为.
+> 为什么？根据eslint文档，一元递增和递减语句会自动插入分号，应用程序中使用一元操作符会导致一些静默的错误。使用 `num += 1`来替代`num++`或者`num ++`也会使递增的表达式变得更加生动明了。使用`++`和`--`可能会导致因为你无意对值进行修改而产生没有预期到的行为.
 ```js
 // bad
 
@@ -149,7 +149,7 @@ const truthyCount = array.filter(Boolean).length;
 ```
 
 - 13.7 在`=`两边避免换行， 如果你的声明语句长度超过了`max-len`，那么把你的值放到括号里. `eslint operator-linebreak`
-> 为什么？`=`的两边换行会混淆分配的值
+> 为什么？`=`的两边换行会混淆分配的值
 ```js
 // bad
 const foo =
@@ -269,7 +269,7 @@ if ([0] && []) {
   // an array (even an empty one) is an object, objects will evaluate to true
 }
 ```
-- 15.3 除非需要比较具体的字符串或者数字，否则使用`booleans`的简写
+- 15.3 除非需要比较具体的字符串或者数字，否则使用`booleans`的简写
 ```js
 // bad
 if (isValid === true) {
@@ -303,7 +303,7 @@ if (collection.length > 0) {
 ```
 
 15.4 在`case`和`default`从句中如果包含了词法声明(e.g. `let`, `const`, `function`, `class`), 那么用大括号包成一个块. ` eslint: no-case-declarations`
-> 为什么？词法声明在整个`switch`块里都是可见的，但是它的初始化发生在`case`执行的时候的数据分配。这种方式在多个`case`从句试图定义同一个东西的时候会出现问题。
+> 为什么？词法声明在整个`switch`块里都是可见的，但是它的初始化发生在`case`执行的时候的数据分配。这种方式在多个`case`从句试图定义同一个东西的时候会出现问题。
 ```js
 // bad
 switch (foo) {
@@ -380,7 +380,7 @@ const baz = !c;
 ```
 
 - 15.7 当各种操作符混合在一起的时候，利用括号将他们组成一组。除非这些操作符是标准的算术运算操作符。`eslint: no-mixed-operators`
-> 为什么？这样可以改善可读性，并且使开发者的意图更加的清晰。
+> 为什么？这样可以改善可读性，并且使开发者的意图更加的清晰。
 ```js
 // bad
 const foo = a && b < 0 || c > 0 || d + 1 === 0;

@@ -15,9 +15,9 @@
 
   console.log(foo, bar); // => 1, 9
   ```
-  `Symbols`不能完全的被模拟，所以在不能原生支持这个属性的环境中不要去使用它
+  `Symbols`不能完全的被模拟，所以在不能原生支持这个属性的环境中不要去使用它
 
-  - 1.2 复杂类型：通过引用的方式来存取复杂类型
+  - 1.2 复杂类型：通过引用的方式来存取复杂类型
     - `object`
     - `array`
     - `function`
@@ -31,7 +31,7 @@
   console.log(foo[0], bar[0]); // => 9, 9
   ```
 ## 引用
-  - 2.1 使用`const`来定义你的引用；避免使用`var`。 eslint：` prefer-const, no-const-assign`
+  - 2.1 使用`const`来定义你的引用；避免使用`var`。 eslint：` prefer-const, no-const-assign`
   > 为什么？这样可以保证你不能对引用重新赋值，否则可能会导致bug的发生，并且代码也会难以理解
   ```javascript
   // bad
@@ -43,7 +43,7 @@
   const b = 2;
   ```
 
-  - 2.2 如果你需要对引用重新赋值，那么请使用`let`来代替`var`。 eslint:` no-var jscs: disallowVar`
+  - 2.2 如果你需要对引用重新赋值，那么请使用`let`来代替`var`。 eslint:` no-var jscs: disallowVar`
   > 为什么?`let`是块级作用域,而`var`是函数作用域
   ```javascript
   // bad
@@ -100,7 +100,7 @@
     [getKey('enabled')]: true,
   };
   ```
-  - 3.3 使用对象方法的简写方式. `eslint: object-shorthand jscs: requireEnhancedObjectLiterals`
+  - 3.3 使用对象方法的简写方式. `eslint: object-shorthand jscs: requireEnhancedObjectLiterals`
   ```javascript
   // bad
   const atom = {
@@ -122,7 +122,7 @@
   ```
 
   - 3.4 使用属性值的简写方式. ` eslint: object-shorthand jscs: requireEnhancedObjectLiterals`
-  > 为什么？写起来更简短，并且更容易描述
+  > 为什么？写起来更简短，并且更容易描述
   ```javascript
   const lukeSkywalker = 'Luke Skywalker';
 
@@ -138,7 +138,7 @@
   ```
 
 
-- 3.5 把简写的属性归为一组放到对象声明的开头
+- 3.5 把简写的属性归为一组放到对象声明的开头
 > 为什么？这样更容易分清哪些属性利用了简写方式
 ```javascript
 const anakinSkywalker = 'Anakin Skywalker';
@@ -166,7 +166,7 @@ const obj = {
 ```
 
 - 3.6 对属性使用引号是不建议的.`eslint: quote-props jscs: disallowQuotedKeysInObjects`
-> 我们觉得不使用引号是更容易阅读的。 对于代码高亮也有一定的改善，对于一些JS引擎也更友好
+> 我们觉得不使用引号是更容易阅读的。 对于代码高亮也有一定的改善，对于一些JS引擎也更友好
 ```javascript
 // bad
 const bad = {
@@ -184,7 +184,7 @@ const good = {
 ```
 
 - 3.7 不要直接调用`Object.prototype`上的方法，比如`hasOwnProperty`、`propertyIsEnumerable` 、`isPrototypeOf`等
-> 为什么？这些方法可能会被对象里的属性覆盖，考虑这些情况 `{ hasOwnProperty: false}`, 或者这个对象可能是一个`null`对象（`Object.create(null)`）
+> 为什么？这些方法可能会被对象里的属性覆盖，考虑这些情况 `{ hasOwnProperty: false}`, 或者这个对象可能是一个`null`对象（`Object.create(null)`）
 ```javascript
 // bad
 console.log(object.hasOwnProperty(key));
@@ -200,7 +200,7 @@ import has from 'has'; // https://www.npmjs.com/package/has
 console.log(has.call(object, key));
 ```
 
-- 3.8 使用`...`操作符来代替`Object.assign`来对对象进行`shallow-copy`。使用`rest`操作来获得一个删除了某些确定属性的对象
+- 3.8 使用`...`操作符来代替`Object.assign`来对对象进行`shallow-copy`。使用`rest`操作来获得一个删除了某些确定属性的对象
 ```javascript
 // very bad
 const original = { a: 1, b: 2 };
@@ -263,7 +263,7 @@ const nodes = Array.from(foo);
 const nodes = [...foo];
 ```
 
-- 4.5 当对类数组进行`map`操作时，请使用`Array.from`而不是`...`操作，因为这样可以避免创建中间数组
+- 4.5 当对类数组进行`map`操作时，请使用`Array.from`而不是`...`操作，因为这样可以避免创建中间数组
 ```javascript
 // bad
 const baz = [...foo].map(bar);
@@ -272,7 +272,7 @@ const baz = [...foo].map(bar);
 const baz = Array.from(foo, bar);
 ```
 
-- 4.6 在数组方法的回调中，需要有`return`的值. 但是如果在函数体重仅仅只有一行表达式，并且这个表达式没有副作用，那么可以省略`return`。 `eslint: array-callback-return`
+- 4.6 在数组方法的回调中，需要有`return`的值. 但是如果在函数体重仅仅只有一行表达式，并且这个表达式没有副作用，那么可以省略`return`。 `eslint: array-callback-return`
 ```javascript
 // good
 [1, 2, 3].map((x) => {

@@ -57,7 +57,7 @@ const { left, top } = processInput(input);
 ```
 
 ## 字符串
-- 6.1 字符串使用单引号。 `eslint: quotes jscs: validateQuoteMarks`
+- 6.1 字符串使用单引号。 `eslint: quotes jscs: validateQuoteMarks`
 ```javascript
 // bad
 const name = "Capt. Janeway";
@@ -69,8 +69,8 @@ const name = `Capt. Janeway`;
 const name = 'Capt. Janeway';
 ```
 
-- 6.2 字符串即使超过100个字符，也不应该换行
-> 为什么？把字符串打碎会让可查找性下降，并且难以协作(painful to work with)
+- 6.2 字符串即使超过100个字符，也不应该换行
+> 为什么？把字符串打碎会让可查找性下降，并且难以协作(painful to work with)
 ```javascript
 // bad
 const errorMessage = 'This is a super long error that was thrown because \
@@ -111,7 +111,7 @@ function sayHi(name) {
 }
 ```
 
-- 6.4 不要使用`eval`, 这种用法很容易被攻击，有安全风险. ` eslint: no-eval`
+- 6.4 不要使用`eval`, 这种用法很容易被攻击，有安全风险. ` eslint: no-eval`
 
 - 6.5 不要使用无用的转义
 > 为什么?反斜线会造成很差的可读性问题，所以仅仅在需要的时候使用
@@ -126,7 +126,7 @@ const foo = `my name is '${name}'`;
 
 ## 函数
 - 7.1 使用命名函数表达式`(named function expressions)`替代函数声明
-> 为什么？函数声明会被提升，这意味着很容易在定义函数之前进行使用。这种方式会导致可读性和可维护性变差。如果你发现一个函数太复杂以至于会影响到文件其他部分的理解，那么你应该将函数放到另一个模块中。别忘了给它一个明确的名字
+> 为什么？函数声明会被提升，这意味着很容易在定义函数之前进行使用。这种方式会导致可读性和可维护性变差。如果你发现一个函数太复杂以至于会影响到文件其他部分的理解，那么你应该将函数放到另一个模块中。别忘了给它一个明确的名字
 > stackoverflow上的讨论：[named function expressions](https://stackoverflow.com/questions/15336347/why-use-named-function-expressions)
 ```javascript
 // bad
@@ -145,8 +145,8 @@ const short = function longUniqueMoreDescriptiveLexicalFoo() {
   // ...
 };
 ```
-- 7.2 将立即调用函数式表达式用括号包裹起来。` eslint: wrap-iife jscs: requireParenthesesAroundIIFE`
-> 为什么？立即调用的函数表达式是一个独立的单元,利用括号包裹，并利用括号去执行它，这样表达式看起来会清晰。但是现在模块被广泛使用，所以通常是不要去使用`IIFE`
+- 7.2 将立即调用函数式表达式用括号包裹起来。` eslint: wrap-iife jscs: requireParenthesesAroundIIFE`
+> 为什么？立即调用的函数表达式是一个独立的单元,利用括号包裹，并利用括号去执行它，这样表达式看起来会清晰。但是现在模块被广泛使用，所以通常是不要去使用`IIFE`
 ```javascript
 // immediately-invoked function expression (IIFE)
 (function () {
@@ -228,7 +228,7 @@ function handleThings(opts = {}) {
 ```
 
 - 7.8 直接给函数参数赋值时需要避免副作用。
->  为什么？因为这样的写法让人感到很困惑。
+>  为什么？因为这样的写法让人感到很困惑。
 ```javascript
 var b = 1;
 // bad
@@ -254,7 +254,7 @@ function handleThings(name, opts = {}) {
 }
 ```
 
-- 7.10 不要利用`Function`来构造一个新的函数.`eslint: no-new-func`
+- 7.10 不要利用`Function`来构造一个新的函数.`eslint: no-new-func`
 > 为什么?这种方式和利用`eval()`类似，会有安全风险
 ```javascript
 // bad
@@ -292,7 +292,7 @@ function f2(obj) {
 ```
 
 - 7.13 不要对传入的参数重新赋值。`eslint: no-param-reassign`
-> 为什么？修改参数会导致不可预期的行为，特别是使用`arguments`对象的时候。也会导致优化的问题，特别是在V8引擎中。
+> 为什么？修改参数会导致不可预期的行为，特别是使用`arguments`对象的时候。也会导致优化的问题，特别是在V8引擎中。
 ```javascript
 // bad
 function f1(a) {
@@ -316,8 +316,8 @@ function f4(a = 1) {
 }
 ```
 
-- 7.14 对于调用可变参数的函数，优先使用`...`操作。`eslint: prefer-spread`
-> 为什么？这样比较简洁，你不需要去绑定`context`,你也不需要使用`apply`去组合成使用`new`来构造的函数
+- 7.14 对于调用可变参数的函数，优先使用`...`操作。`eslint: prefer-spread`
+> 为什么？这样比较简洁，你不需要去绑定`context`,你也不需要使用`apply`去组合成使用`new`来构造的函数
 ```javascript
 // bad
 const x = [1, 2, 3, 4, 5];
@@ -334,7 +334,7 @@ new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]));
 new Date(...[2016, 8, 5]);
 ```
 
-- 7.15 拥有多个多行签名或者实参调用的函数，每一个签名或者每一个实参都应该独立一行，并且最后一个签名或者参数需要加逗号。`eslint: function-paren-newline`
+- 7.15 拥有多个多行签名或者实参调用的函数，每一个签名或者每一个实参都应该独立一行，并且最后一个签名或者参数需要加逗号。`eslint: function-paren-newline`
 ```javascript
 // bad
 function foo(bar,
@@ -366,7 +366,7 @@ console.log(
 ```
 
 ## 箭头函数
-- 8.1 当你必须使用一个匿名函数(或者仅仅是一行的回调函数)时，使用箭头函数的符号.`eslint: prefer-arrow-callback, arrow-spacing jscs: requireArrowFunctions`
+- 8.1 当你必须使用一个匿名函数(或者仅仅是一行的回调函数)时，使用箭头函数的符号.`eslint: prefer-arrow-callback, arrow-spacing jscs: requireArrowFunctions`
 > 为什么？因为箭头函数创造了新的一个 `this` 执行环境通常情况下都能满足你的需求，而且这样的写法更为简洁。
 
 > 为什么不？如果你有一个相当复杂的函数，你或许可以把逻辑部分转移到一个函数声明上。
@@ -445,7 +445,7 @@ foo(() => {
 ));
 ```
 
-- 8.4 如果函数只有一个参数，并且这个参数没有加括号，那么，函数体不需要大括号。`eslint: arrow-parens jscs: disallowParenthesesAroundArrowParam`
+- 8.4 如果函数只有一个参数，并且这个参数没有加括号，那么，函数体不需要大括号。`eslint: arrow-parens jscs: disallowParenthesesAroundArrowParam`
 > 为什么？视觉上更清晰，没有杂乱的部分
 ```javascript
 // bad
